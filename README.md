@@ -1,5 +1,24 @@
-# `jcode` - A simple protocol for controlling my painting robot
-- I am trying to build a painting robot (trying to make as much from scratch as possible)
-- I wanted to make something similar to GCODE for 3D printers
-- This is a go package for easily reading and writing JCODE
- 
+# `jcode` - A Simple 2D Robot Control Protocol
+- JCODE is my own take on a 2D CNC language (similar to GCODE for 3D printers).
+- It is designed to be extremely simple such that it can be easily re-implemented on many types of robot.
+    - This simplicity is supposed to move as much of the maths of calculating paths to the powerful computer and away from the microcontroller.
+- I have designed this primarily for a drawing robot I am working on.
+
+## Instructions
+- `W <x> <y>;`: Set a waypoint to position `x,y`.
+- `S <s>;`: Set the speed to move between waypoints to `s`.
+- `D <d>;`: Stop where we are for `d` microseconds.
+- `P <p>;`: Set the pen to either up `U` or down `D`.
+- Whitespace before/after instructions should not be important (you can either put all instructions on one line or have a newline between each).
+
+## Example
+The below example moves to a start position, waits for a second, then draws a line, finally returning to a start position.
+```
+S 2;
+W 0 5;
+D 1000;
+P D;
+W 5.5 5;
+P U;
+W 0 5;
+```
