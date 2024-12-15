@@ -5,11 +5,16 @@
 - I have designed this primarily for a drawing robot I am working on.
 
 ## Instructions
+- All instructions are followed by a semicolon.
+- Whitespace before/after instructions should not be important (you can either put all instructions on one line or have a newline between each).
+### Controller -> Robot
 - `W <x> <y>;`: Set a waypoint to position `x,y`.
 - `S <s>;`: Set the speed to move between waypoints to `s`.
 - `D <d>;`: Stop where we are for `d` microseconds.
 - `P <p>;`: Set the pen to either up `U` or down `D`.
-- Whitespace before/after instructions should not be important (you can either put all instructions on one line or have a newline between each).
+### Robot -> Controller
+- `C;`: Sent to signal robot has just consumed an instruction.
+- `L <msg>;`: Sent to indicate a log message.
 
 ## Example
 The below example moves to a start position, waits for a second, then draws a line, finally returning to a start position.

@@ -37,6 +37,10 @@ func (j *Encoder) Write(instructions ...Instruction) error {
 			s = fmt.Sprintf("D %d;", ins.Duration.Milliseconds())
 		case Pen:
 			s = fmt.Sprintf("P %s;", map[PenMode]string{PenDown: "D", PenUp: "U"}[ins.Mode])
+		case Consumed:
+			s = "C;"
+		case Log:
+			s = fmt.Sprintf("L %s;", ins.Message)
 		default:
 			return fmt.Errorf("invalid instruction of type %T", ins)
 		}
@@ -107,7 +111,10 @@ func (j *Decoder) Read() (Instruction, error) {
 			return nil, fmt.Errorf("invalid pen mode '%s'", mode)
 		}
 		return p, nil
-
+	case 'C':
+		return Consumed{}, nil
+	case 'L':
+		return Log{s}, nil
 	default:
 		return nil, fmt.Errorf("invalid instruction '%v'", ins)
 	}

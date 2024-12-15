@@ -55,6 +55,7 @@ func TestJCodeEncodeDecode(t *testing.T) {
 	}
 
 	input := ExportCurve(curve, 10)
+	input = append(input, Speed{1}, Log{"This is a log message"}, Delay{10 * time.Second})
 
 	if err := enc.Write(input...); err != nil {
 		panic(err)
@@ -80,7 +81,7 @@ func equal(i1, i2 Instruction) bool {
 	case Speed:
 		i2 := i2.(Speed)
 		return floatDelta(i1.Speed, i2.Speed, delta)
-	case Delay, Pen:
+	case Delay, Pen, Consumed, Log:
 		return i1 == i2
 	default:
 		panic("no")

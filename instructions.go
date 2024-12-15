@@ -36,3 +36,13 @@ type Pen struct {
 }
 
 func (w Pen) JCode() {}
+
+type Consumed struct{}
+
+func (c Consumed) JCode() {}
+
+type Log struct {
+	Message string
+}
+
+func (e Log) JCode() {}
