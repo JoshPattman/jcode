@@ -3,26 +3,26 @@ package jcode
 import "time"
 
 type Instruction interface {
-	JCode()
+	jcode()
 }
 
 type Waypoint struct {
 	XPos, YPos float64
 }
 
-func (w Waypoint) JCode() {}
+func (w Waypoint) jcode() {}
 
 type Speed struct {
 	Speed float64
 }
 
-func (w Speed) JCode() {}
+func (w Speed) jcode() {}
 
 type Delay struct {
 	Duration time.Duration
 }
 
-func (w Delay) JCode() {}
+func (w Delay) jcode() {}
 
 type PenMode bool
 
@@ -35,14 +35,18 @@ type Pen struct {
 	Mode PenMode
 }
 
-func (w Pen) JCode() {}
+func (w Pen) jcode() {}
 
 type Consumed struct{}
 
-func (c Consumed) JCode() {}
+func (c Consumed) jcode() {}
 
 type Log struct {
 	Message string
 }
 
-func (e Log) JCode() {}
+func (e Log) jcode() {}
+
+type AutoHome struct{}
+
+func (a AutoHome) jcode() {}

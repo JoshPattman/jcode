@@ -12,6 +12,7 @@
 - `S <s>;`: Set the speed to move between waypoints to `s`.
 - `D <d>;`: Stop where we are for `d` microseconds.
 - `P <p>;`: Set the pen to either up `U` or down `D`.
+- `H;`: Auto home the robot (and wait for homing to complete).
 ### Robot -> Controller
 - `C;`: Sent to signal robot has just consumed an instruction.
 - `L <msg>;`: Sent to indicate a log message.

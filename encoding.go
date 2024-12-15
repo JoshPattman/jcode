@@ -41,6 +41,8 @@ func (j *Encoder) Write(instructions ...Instruction) error {
 			s = "C;"
 		case Log:
 			s = fmt.Sprintf("L %s;", ins.Message)
+		case AutoHome:
+			s = "H;"
 		default:
 			return fmt.Errorf("invalid instruction of type %T", ins)
 		}
@@ -115,6 +117,8 @@ func (j *Decoder) Read() (Instruction, error) {
 		return Consumed{}, nil
 	case 'L':
 		return Log{s}, nil
+	case 'H':
+		return AutoHome{}, nil
 	default:
 		return nil, fmt.Errorf("invalid instruction '%v'", ins)
 	}
