@@ -6,23 +6,25 @@ type Instruction interface {
 	jcode()
 }
 
+func (w Waypoint) jcode() {}
+func (w Speed) jcode()    {}
+func (w Delay) jcode()    {}
+func (w Pen) jcode()      {}
+func (c Consumed) jcode() {}
+func (e Log) jcode()      {}
+func (a AutoHome) jcode() {}
+
 type Waypoint struct {
 	XPos, YPos float64
 }
-
-func (w Waypoint) jcode() {}
 
 type Speed struct {
 	Speed float64
 }
 
-func (w Speed) jcode() {}
-
 type Delay struct {
 	Duration time.Duration
 }
-
-func (w Delay) jcode() {}
 
 type PenMode bool
 
@@ -35,18 +37,10 @@ type Pen struct {
 	Mode PenMode
 }
 
-func (w Pen) jcode() {}
-
 type Consumed struct{}
-
-func (c Consumed) jcode() {}
 
 type Log struct {
 	Message string
 }
 
-func (e Log) jcode() {}
-
 type AutoHome struct{}
-
-func (a AutoHome) jcode() {}
