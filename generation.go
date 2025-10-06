@@ -30,15 +30,17 @@ func ExportCurve(c Curve, pointPerSecond float64) []Instruction {
 	code := make([]Instruction, 0)
 	t := 0.0
 	lastSpeed := Speed{-834530943289}
-	for t <= c.Duration().Seconds() {
-		wp, sp := c.Evaluate(time.Microsecond * time.Duration(t*1000000))
+	step := 1.0 / pointPerSecond
+	for t < c.Duration().Seconds()+step {
+		tc := min(t, c.Duration().Seconds())
+		wp, sp := c.Evaluate(time.Microsecond * time.Duration(tc*1000000))
 		if sp != lastSpeed {
 			code = append(code, sp, wp)
 			lastSpeed = sp
 		} else {
 			code = append(code, wp)
 		}
-		t += 1.0 / pointPerSecond
+		t += step
 	}
 	return code
 }
