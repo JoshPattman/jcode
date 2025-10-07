@@ -2,7 +2,6 @@ package jcode
 
 import (
 	"bufio"
-	"errors"
 	"fmt"
 	"io"
 	"strings"
@@ -122,24 +121,4 @@ func (j *Decoder) Read() (Instruction, error) {
 	default:
 		return nil, fmt.Errorf("invalid instruction '%v'", ins)
 	}
-}
-
-// Helper function to start a seperate goroutine that reads instructions from the reader.
-func BeginInstructionProcessing(r io.Reader, bufSize int) chan Instruction {
-	instructionReader := NewDecoder(r)
-	result := make(chan Instruction, bufSize)
-	go func() {
-		for {
-			ins, err := instructionReader.Read()
-			if errors.Is(err, io.EOF) {
-				close(result)
-				return
-			} else if err != nil {
-				fmt.Printf("Error: %v\n", err)
-				continue
-			}
-			result <- ins
-		}
-	}()
-	return result
 }
